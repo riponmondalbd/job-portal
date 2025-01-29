@@ -1,17 +1,40 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import logo from "../../assets/logo-small.png";
 import AuthContext from "../../context/AuthContext/AuthContext";
 
 const Navbar = () => {
-  const { user } = useContext(AuthContext);
+  const { user, signOutUser } = useContext(AuthContext);
+
+  const handleSignOut = () => {
+    signOutUser()
+      .then(() => {
+        console.log("successful sign out");
+      })
+      .catch((error) => console.error(error.message));
+  };
+
+  // nav styles
+  const navStyle = ({ isActive }) => ({
+    color: isActive ? "blue" : "",
+  });
 
   const links = (
     <>
       <li>
-        <a>Item 1</a>
+        <NavLink to={"/"} style={navStyle}>
+          Home
+        </NavLink>
       </li>
       <li>
-        <a>Item 3</a>
+        <NavLink to={"/login"} style={navStyle}>
+          Login
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to={"/contact"} style={navStyle}>
+          Contact
+        </NavLink>
       </li>
     </>
   );
@@ -42,7 +65,10 @@ const Navbar = () => {
             {links}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">daisyUI</a>
+        <Link className="btn btn-ghost text-xl" to={"/"}>
+          <img className="w-12" src={logo} alt="logo" />{" "}
+          <h3 className="text-3xl">Job Portal</h3>
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>
@@ -50,9 +76,9 @@ const Navbar = () => {
       <div className="navbar-end">
         {user ? (
           <>
-            <Link to={"/logout"}>
-              <button className="btn">Log Out</button>
-            </Link>
+            <button onClick={handleSignOut} className="btn">
+              Sign Out
+            </button>
           </>
         ) : (
           <>
