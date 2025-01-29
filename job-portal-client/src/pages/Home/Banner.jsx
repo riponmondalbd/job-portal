@@ -1,14 +1,26 @@
 import { easeOut } from "motion/react";
 import * as motion from "motion/react-client";
+import team1 from "../../assets/team/office-happy-team.jpg";
+import team2 from "../../assets/team/programming -team-celebrate.jpg";
 
 const Banner = () => {
   return (
     <div className="hero bg-base-200 min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className="flex-1">
-          <img
-            src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
-            className="max-w-sm rounded-lg shadow-2xl"
+          <motion.img
+            src={team1}
+            alt="team image"
+            animate={{ y: [50, 100, 50] }}
+            transition={{ duration: 10, repeat: Infinity }}
+            className="max-w-sm rounded-[40px] rounded-bl-none border-l-8 border-b-8 border-blue-700 shadow-2xl"
+          />
+          <motion.img
+            src={team2}
+            alt="team image"
+            animate={{ x: [100, 150, 100] }}
+            transition={{ duration: 10, repeat: Infinity }}
+            className="max-w-sm rounded-[40px] rounded-bl-none border-l-8 border-b-8 border-blue-700 shadow-2xl"
           />
         </div>
         <div className="flex-1">
@@ -22,7 +34,14 @@ const Banner = () => {
             }}
             className="text-5xl font-bold"
           >
-            Latest Jobs For You!
+            Latest{" "}
+            <motion.span
+              animate={{ color: ["#049527", "#33ffdd", "#ff6e33"] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            >
+              Jobs
+            </motion.span>{" "}
+            For You!
           </motion.h1>
           <p className="py-6">
             Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
