@@ -19,7 +19,7 @@ const Banner = () => {
             src={team2}
             alt="team image"
             animate={{ x: [100, 150, 100] }}
-            transition={{ duration: 10, repeat: Infinity }}
+            transition={{ duration: 10, delay: 5, repeat: Infinity }}
             className="max-w-sm rounded-[40px] rounded-bl-none border-l-8 border-b-8 border-blue-700 shadow-2xl"
           />
         </div>
