@@ -7,20 +7,20 @@ const Banner = () => {
   return (
     <div className="hero bg-base-200 min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse">
-        <div className="flex-1">
+        <div className="flex-1 -ml-36 lg:ml-36">
           <motion.img
             src={team1}
             alt="team image"
             animate={{ y: [50, 100, 50] }}
             transition={{ duration: 10, repeat: Infinity }}
-            className="max-w-sm rounded-[40px] rounded-bl-none border-l-8 border-b-8 border-blue-700 shadow-2xl"
+            className="max-w-sm w-60 md:w-full rounded-[40px] rounded-bl-none border-l-4 border-b-4 border-blue-700 shadow-2xl"
           />
           <motion.img
             src={team2}
             alt="team image"
             animate={{ x: [100, 150, 100] }}
             transition={{ duration: 10, delay: 5, repeat: Infinity }}
-            className="max-w-sm rounded-[40px] rounded-bl-none border-l-8 border-b-8 border-blue-700 shadow-2xl"
+            className="max-w-sm w-60 md:w-full rounded-[40px] rounded-bl-none border-l-4 border-b-4 border-blue-700 shadow-2xl"
           />
         </div>
         <div className="flex-1">
