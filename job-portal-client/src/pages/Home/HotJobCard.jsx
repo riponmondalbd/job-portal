@@ -1,8 +1,10 @@
 import { CiLocationOn } from "react-icons/ci";
 import { FaDollarSign } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 const HotJobCard = ({ job }) => {
   const {
+    _id,
     title,
     company,
     company_logo,
@@ -32,10 +34,10 @@ const HotJobCard = ({ job }) => {
         </h2>
         <p>{description}</p>
         <div className="flex gap-2 flex-wrap">
-          {requirements.map((skill, idx) => (
+          {requirements.map((skill, index) => (
             <p
               className="border rounded-md text-center px-2 py-3 hover:text-white hover:bg-blue-400"
-              key={idx}
+              key={index}
             >
               {skill}
             </p>
@@ -47,7 +49,9 @@ const HotJobCard = ({ job }) => {
             <FaDollarSign /> {salaryRange.min} - {salaryRange.max}{" "}
             {salaryRange.currency}
           </p>
-          <button className="btn btn-sm btn-primary">Apply</button>
+          <Link to={`/jobs/${_id}`}>
+            <button className="btn btn-sm btn-primary">Apply</button>
+          </Link>
         </div>
       </div>
     </div>
