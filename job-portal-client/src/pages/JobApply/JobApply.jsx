@@ -1,10 +1,11 @@
 import { useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 
 const JobApply = () => {
   const { id } = useParams();
   const { user } = useAuth();
-  console.log(id, user);
+  //   console.log(id, user);
 
   const submitJobApplication = (e) => {
     e.preventDefault();
@@ -13,7 +14,7 @@ const JobApply = () => {
     const github = form.github.value;
     const resume = form.resume.value;
 
-    console.log(linkedIn, github, resume);
+    // console.log(linkedIn, github, resume);
 
     const jobApplication = {
       job_id: id,
@@ -22,6 +23,26 @@ const JobApply = () => {
       github,
       resume,
     };
+
+    fetch("http://localhost:5000/job-applications", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(jobApplication),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Your work has been saved",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
   };
 
   return (
