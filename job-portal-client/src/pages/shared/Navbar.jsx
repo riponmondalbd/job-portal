@@ -32,8 +32,8 @@ const Navbar = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to={"/contact"} style={navStyle}>
-          Contact
+        <NavLink to={"/myApplications"} style={navStyle}>
+          My Applications
         </NavLink>
       </li>
     </>
