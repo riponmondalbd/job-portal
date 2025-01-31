@@ -27,13 +27,13 @@ const Navbar = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to={"/login"} style={navStyle}>
-          Login
+        <NavLink to={"/myApplications"} style={navStyle}>
+          My Applications
         </NavLink>
       </li>
       <li>
-        <NavLink to={"/myApplications"} style={navStyle}>
-          My Applications
+        <NavLink to={"/addJob"} style={navStyle}>
+          Add A Job
         </NavLink>
       </li>
     </>
