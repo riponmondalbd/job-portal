@@ -1,16 +1,44 @@
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import useAuth from "../../hooks/useAuth";
+
 const AddJob = () => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
   const handleAddJob = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     // console.log(formData.entries());
     const initialData = Object.fromEntries(formData.entries());
-    console.log(initialData);
+    // console.log(initialData);
 
     const { min, max, currency, ...newJob } = initialData;
+    newJob.salaryRange = { min, max, currency };
+    newJob.requirements = newJob.requirements.split("\n");
+    newJob.responsibilities = newJob.responsibilities.split("\n");
     console.log(newJob);
 
-    newJob.salaryRange = { min, max, currency };
-    console.log(newJob);
+    fetch("http://localhost:5000/jobs", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newJob),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.insertedId) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Job Has been added",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          navigate("/myApplications");
+        }
+      });
   };
   return (
     <div>
@@ -36,7 +64,7 @@ const AddJob = () => {
           {/* job type */}
           <label className="fieldset-label">Job Type</label>
           <select
-            defaultValue="Pick a color"
+            defaultValue="Pick a Job Type"
             name="jobType"
             className="select w-full"
           >
@@ -48,7 +76,7 @@ const AddJob = () => {
           {/* job field */}
           <label className="fieldset-label">Job Field</label>
           <select
-            defaultValue="Pick a color"
+            defaultValue="Pick a Job Field"
             name="category"
             className="select w-full"
           >
@@ -82,7 +110,7 @@ const AddJob = () => {
             <div>
               <label className="fieldset-label">Currency</label>
               <select
-                defaultValue="Pick a color"
+                defaultValue="Currency"
                 name="currency"
                 className="select w-full"
               >
@@ -111,25 +139,26 @@ const AddJob = () => {
           />
           {/* requirements */}
           <label className="fieldset-label">Job Requirements</label>
-          <input
-            type="text"
-            name="requirements"
-            className="input w-full"
+          <textarea
+            className="textarea textarea-bordered w-full"
             placeholder="Put each requirements in a new line"
-          />
+            name="requirements"
+            required
+          ></textarea>
           {/* responsibilities */}
           <label className="fieldset-label">Job Responsibilities</label>
-          <input
-            type="text"
-            name="responsibilities"
-            className="input w-full"
+          <textarea
+            className="textarea textarea-bordered w-full"
             placeholder="Write each responsibility in a new line"
-          />
+            name="responsibilities"
+            required
+          ></textarea>
           {/* hr email */}
           <label className="fieldset-label">HR Email</label>
           <input
             type="hr_email"
             name="email"
+            defaultValue={user?.email}
             className="input w-full"
             placeholder="HR Email"
           />
