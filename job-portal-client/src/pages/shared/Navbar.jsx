@@ -36,6 +36,11 @@ const Navbar = () => {
           Add A Job
         </NavLink>
       </li>
+      <li>
+        <NavLink to={"/myPostedJob"} style={navStyle}>
+          My Posted Job
+        </NavLink>
+      </li>
     </>
   );
   return (

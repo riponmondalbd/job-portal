@@ -36,7 +36,7 @@ const AddJob = () => {
             showConfirmButton: false,
             timer: 1500,
           });
-          navigate("/myApplications");
+          navigate("/myPostedJob");
         }
       });
   };
@@ -90,7 +90,6 @@ const AddJob = () => {
           <p className="mt-4">Salary Range</p>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
             <div>
-              <label className="fieldset-label">Min</label>
               <input
                 type="text"
                 name="min"
@@ -99,7 +98,6 @@ const AddJob = () => {
               />
             </div>
             <div>
-              <label className="fieldset-label">Max</label>
               <input
                 type="text"
                 name="max"
@@ -108,7 +106,6 @@ const AddJob = () => {
               />
             </div>
             <div>
-              <label className="fieldset-label">Currency</label>
               <select
                 defaultValue="Currency"
                 name="currency"
@@ -156,11 +153,19 @@ const AddJob = () => {
           {/* hr email */}
           <label className="fieldset-label">HR Email</label>
           <input
-            type="hr_email"
-            name="email"
+            type="email"
+            name="hr_email"
             defaultValue={user?.email}
             className="input w-full"
             placeholder="HR Email"
+          />
+          {/* application deadline */}
+          <label className="fieldset-label">Deadline</label>
+          <input
+            type="date"
+            name="applicationDeadline"
+            className="input w-full"
+            placeholder="Deadline"
           />
           {/* hr name */}
           <label className="fieldset-label">HR Name</label>
