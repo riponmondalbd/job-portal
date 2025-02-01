@@ -81,6 +81,13 @@ async function run() {
       res.send(result);
     });
 
+    app.get("/job-applications/jobs/:job_id", async (req, res) => {
+      const jobId = req.params.job_id;
+      const query = { job_id: jobId };
+      const result = await jobApplicationCollection.find(query).toArray();
+      res.send(result);
+    });
+
     app.post("/job-applications", async (req, res) => {
       const applications = req.body;
       const result = await jobApplicationCollection.insertOne(applications);
