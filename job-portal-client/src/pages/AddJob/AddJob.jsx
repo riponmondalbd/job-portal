@@ -1,8 +1,21 @@
 const AddJob = () => {
+  const handleAddJob = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    // console.log(formData.entries());
+    const initialData = Object.fromEntries(formData.entries());
+    console.log(initialData);
+
+    const { min, max, currency, ...newJob } = initialData;
+    console.log(newJob);
+
+    newJob.salaryRange = { min, max, currency };
+    console.log(newJob);
+  };
   return (
     <div>
       <h2 className="text-3xl">Post a new Job</h2>
-      <form className="card-body">
+      <form onSubmit={handleAddJob} className="card-body">
         <fieldset className="fieldset">
           {/* job title */}
           <label className="fieldset-label">Job Title</label>
@@ -22,7 +35,11 @@ const AddJob = () => {
           />
           {/* job type */}
           <label className="fieldset-label">Job Type</label>
-          <select defaultValue="Pick a color" className="select w-full">
+          <select
+            defaultValue="Pick a color"
+            name="jobType"
+            className="select w-full"
+          >
             <option disabled={true}>Pick a Job Type</option>
             <option>Full-time</option>
             <option>Intern</option>
@@ -30,7 +47,11 @@ const AddJob = () => {
           </select>
           {/* job field */}
           <label className="fieldset-label">Job Field</label>
-          <select defaultValue="Pick a color" className="select w-full">
+          <select
+            defaultValue="Pick a color"
+            name="category"
+            className="select w-full"
+          >
             <option disabled={true}>Pick a Job Field</option>
             <option>Engineering</option>
             <option>Marketing</option>
@@ -60,7 +81,11 @@ const AddJob = () => {
             </div>
             <div>
               <label className="fieldset-label">Currency</label>
-              <select defaultValue="Pick a color" className="select w-full">
+              <select
+                defaultValue="Pick a color"
+                name="currency"
+                className="select w-full"
+              >
                 <option disabled={true}>Currency</option>
                 <option>BDT</option>
                 <option>USD</option>
@@ -101,28 +126,28 @@ const AddJob = () => {
             placeholder="Write each responsibility in a new line"
           />
           {/* hr email */}
-          <label className="fieldset-label">Email</label>
+          <label className="fieldset-label">HR Email</label>
           <input
-            type="email"
+            type="hr_email"
             name="email"
             className="input w-full"
-            placeholder="Email"
+            placeholder="HR Email"
           />
           {/* hr name */}
-          <label className="fieldset-label">Name</label>
+          <label className="fieldset-label">HR Name</label>
           <input
             type="text"
-            name="name"
+            name="hr_name"
             className="input w-full"
-            placeholder="Name"
+            placeholder="HR Name"
           />
           {/* company logo */}
-          <label className="fieldset-label">Logo</label>
+          <label className="fieldset-label">Company Logo URL</label>
           <input
             type="text"
-            name="logo"
+            name="company_logo"
             className="input w-full"
-            placeholder="Logo"
+            placeholder="Company Logo URL"
           />
           {/* submit button */}
           <button className="btn btn-neutral mt-4">Submit</button>
