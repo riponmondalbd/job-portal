@@ -51,7 +51,7 @@ const ViewApplications = () => {
                 <tr key={app._id}>
                   <th>{index + 1}</th>
                   <td>{app.applicant_email}</td>
-                  <td>Quality Control Specialist</td>
+                  <td>{app.status}</td>
                   <td>
                     <select
                       onChange={(e) => handleStatusUpdate(e, app._id)}
