@@ -24,9 +24,11 @@ const SignIn = () => {
       .then((result) => {
         console.log(result.user);
         const user = { email: email };
-        axios.post(`http://localhost:5000/jwt`, user).then((data) => {
-          console.log(data.data);
-        });
+        axios
+          .post(`http://localhost:5000/jwt`, user, { withCredentials: true })
+          .then((data) => {
+            console.log(data.data);
+          });
         // navigate(from);
       })
       .catch((error) => {
