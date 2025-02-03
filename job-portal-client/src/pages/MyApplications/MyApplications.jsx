@@ -17,7 +17,9 @@ const MyApplications = () => {
       .get(`http://localhost:5000/job-applications?email=${user.email}`, {
         withCredentials: true,
       })
-      .then((res) => setJobs(res.data));
+      .then((res) => {
+        setJobs(res.data);
+      });
   }, [user.email]);
   return (
     <div>
