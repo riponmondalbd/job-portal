@@ -13,6 +13,7 @@ export default [
       globals: globals.browser,
       parserOptions: {
         ecmaVersion: "latest",
+        node: true,
         ecmaFeatures: { jsx: true },
         sourceType: "module",
       },
@@ -33,7 +34,6 @@ export default [
         "warn",
         { allowConstantExport: true },
       ],
-      "react/prop-types": "off",
     },
   },
 ];
