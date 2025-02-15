@@ -69,9 +69,6 @@ const Register = () => {
                 className="input"
                 placeholder="Password"
               />
-              <div>
-                <a className="link link-hover">Forgot password?</a>
-              </div>
               <button className="btn btn-neutral mt-4">Register</button>
             </form>
             <SocialLogin />
