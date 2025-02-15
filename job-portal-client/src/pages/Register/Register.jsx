@@ -1,8 +1,12 @@
 import Lottie from "lottie-react";
 
+import { useContext } from "react";
 import reactLottieData from "../../assets/lottie/register.json";
+import AuthContext from "../../context/AuthContext/AuthContext";
 
 const Register = () => {
+  const { createUser } = useContext(AuthContext);
+
   const handleRegister = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -31,6 +35,14 @@ const Register = () => {
       alert("Password must not contain White spaces");
       return;
     }
+
+    createUser(email, password)
+      .then((result) => {
+        console.log(result.user);
+      })
+      .catch((error) => {
+        console.error(error.message);
+      });
   };
   return (
     <div className="hero bg-base-200 min-h-screen">
