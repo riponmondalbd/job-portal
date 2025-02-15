@@ -1,8 +1,10 @@
 import { IoLocationSharp } from "react-icons/io5";
 import { LuDollarSign } from "react-icons/lu";
+import { Link } from "react-router";
 
 const HotJobCard = ({ job }) => {
   const {
+    _id,
     title,
     company,
     company_logo,
@@ -46,7 +48,9 @@ const HotJobCard = ({ job }) => {
             {salaryRange.currency}
           </p>
 
-          <button className="btn btn-primary w-full">View Details</button>
+          <Link to={`/jobs/${_id}`} className="w-full">
+            <button className="btn btn-primary w-full">View Details</button>
+          </Link>
         </div>
       </div>
     </div>
