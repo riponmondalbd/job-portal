@@ -1,12 +1,21 @@
 import Lottie from "lottie-react";
 
 import { useContext } from "react";
+import Swal from "sweetalert2";
 import registerLottieData from "../../assets/lottie/register.json";
 import AuthContext from "../../context/AuthContext/AuthContext";
 import SocialLogin from "../shared/SocialLogin";
 
 const Register = () => {
   const { createUser } = useContext(AuthContext);
+
+  const showValidationError = (message) => {
+    Swal.fire({
+      icon: "error",
+      title: message,
+      draggable: true,
+    });
+  };
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -18,31 +27,42 @@ const Register = () => {
 
     // password validation
     if (password.length < 6) {
-      alert("password must be contain 6 character");
+      showValidationError("password must be contain 6 character");
       return;
     } else if (!/[0-9]/.test(password)) {
-      alert("Password must contain at least one digit");
+      showValidationError("Password must contain at least one digit");
       return;
     } else if (!/[a-z]/.test(password)) {
-      alert("Password must contain at least one lower case letter");
+      showValidationError(
+        "Password must contain at least one lower case letter"
+      );
       return;
     } else if (!/[A-Z]/.test(password)) {
-      alert("Password must contain at least one upper case letter");
+      showValidationError(
+        "Password must contain at least one upper case letter"
+      );
       return;
     } else if (!/[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹]/.test(password)) {
-      alert("Password must contain at least special character");
+      showValidationError("Password must contain at least special character");
       return;
     } else if (!/^\S*$/.test(password)) {
-      alert("Password must not contain White spaces");
+      showValidationError("Password must not contain White spaces");
       return;
     }
+
+    // success
+    Swal.fire({
+      title: "Register Successfully!",
+      icon: "success",
+      draggable: true,
+    });
 
     createUser(email, password)
       .then((result) => {
         console.log(result.user);
       })
       .catch((error) => {
-        console.error(error.message);
+        showValidationError(error.message);
       });
   };
   return (

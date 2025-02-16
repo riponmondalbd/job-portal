@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { useLocation, useNavigate } from "react-router";
+import Swal from "sweetalert2";
 import AuthContext from "../../context/AuthContext/AuthContext";
 
 const SocialLogin = () => {
@@ -11,11 +12,21 @@ const SocialLogin = () => {
   const handleGoogleSignIn = () => {
     signInWithGoogle()
       .then((result) => {
-        console.log(result.user);
+        if (result.user) {
+          Swal.fire({
+            title: "Login Successfully!",
+            icon: "success",
+            draggable: true,
+          });
+        }
         navigate(form);
       })
       .catch((error) => {
-        console.log(error.message);
+        Swal.fire({
+          title: error.message,
+          icon: "error",
+          draggable: true,
+        });
       });
   };
 

@@ -1,6 +1,7 @@
 import Lottie from "lottie-react";
 import { useContext } from "react";
 import { useLocation, useNavigate } from "react-router";
+import Swal from "sweetalert2";
 import signinLottieData from "../../assets/lottie/login.json";
 import AuthContext from "../../context/AuthContext/AuthContext";
 import SocialLogin from "../shared/SocialLogin";
@@ -21,11 +22,21 @@ const SignIn = () => {
 
     signInUser(email, password)
       .then((result) => {
-        console.log(result.user);
+        if (result.user) {
+          Swal.fire({
+            title: "Login Successfully!",
+            icon: "success",
+            draggable: true,
+          });
+        }
         navigate(from);
       })
       .catch((error) => {
-        console.error(error.message);
+        Swal.fire({
+          title: error.message,
+          icon: "error",
+          draggable: true,
+        });
       });
   };
   return (

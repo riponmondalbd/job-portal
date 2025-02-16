@@ -1,4 +1,5 @@
 import { useParams } from "react-router";
+import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 
 const JobApply = () => {
@@ -23,6 +24,24 @@ const JobApply = () => {
       github,
       resume,
     };
+
+    fetch(`http://localhost:5000/job-applications`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(jobApplication),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          Swal.fire({
+            title: "Successfully Apply A Job!",
+            icon: "success",
+            draggable: true,
+          });
+        }
+      });
   };
   return (
     <div className="card bg-base-100 w-full shadow-2xl">
