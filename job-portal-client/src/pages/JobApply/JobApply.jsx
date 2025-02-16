@@ -1,10 +1,11 @@
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 
 const JobApply = () => {
   const { id } = useParams();
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   //   console.log(id, user);
 
@@ -40,6 +41,7 @@ const JobApply = () => {
             icon: "success",
             draggable: true,
           });
+          navigate("/myApplications");
         }
       });
   };

@@ -3,6 +3,7 @@ import MainLayout from "../layout/MainLayout";
 import Home from "../pages/Home/Home";
 import JobApply from "../pages/JobApply/JobApply";
 import JobDetails from "../pages/JobDetails/JobDetails";
+import MyApplications from "../pages/MyApplications/MyApplications";
 import Register from "../pages/Register/Register";
 import SignIn from "../pages/SignIn/SignIn";
 import PrivateRoute from "./PrivateRoute";
@@ -44,6 +45,14 @@ const router = createBrowserRouter([
         ),
         loader: ({ params }) =>
           fetch(`http://localhost:5000/jobs/${params.id}`),
+      },
+      {
+        path: "/myApplications",
+        element: (
+          <PrivateRoute>
+            <MyApplications />
+          </PrivateRoute>
+        ),
       },
     ],
   },
