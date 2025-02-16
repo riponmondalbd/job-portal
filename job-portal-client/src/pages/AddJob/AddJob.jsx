@@ -1,19 +1,44 @@
+import Swal from "sweetalert2";
+import useAuth from "../../hooks/useAuth";
+
 const AddJob = () => {
+  const { user } = useAuth();
+
   const handleAddJob = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     // console.log(formData.entries());
     const initialData = Object.fromEntries(formData.entries());
-    console.log(initialData);
 
     const { min, max, currency, ...newJob } = initialData;
-    console.log(newJob);
 
     newJob.salaryRange = {
       min,
       max,
       currency,
     };
+    newJob.requirements = newJob.requirements.split("\n");
+    newJob.responsibilities = newJob.responsibilities.split("\n");
+
+    console.log(newJob);
+
+    fetch(`http://localhost:5000/jobs`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newJob),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          Swal.fire({
+            title: "Successfully Add a Job!",
+            icon: "success",
+            draggable: true,
+          });
+        }
+      });
   };
   return (
     <div>
@@ -62,6 +87,15 @@ const AddJob = () => {
           <option>Finance</option>
           <option>Teaching</option>
         </select>
+        {/* job location */}
+        <label className="fieldset-label">Application Deadline</label>
+        <input
+          type="date"
+          name="applicationDeadline"
+          className="input w-full"
+          placeholder="Application Deadline"
+          required
+        />
         {/* salary range */}
         <label className="fieldset-label">Salary Range</label>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
@@ -145,6 +179,8 @@ const AddJob = () => {
           name="hr_email"
           className="input w-full"
           placeholder="HR Email"
+          defaultValue={user.email}
+          readOnly
           required
         />
         {/* company logo */}
