@@ -1,8 +1,10 @@
+import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 
 const AddJob = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   const handleAddJob = (e) => {
     e.preventDefault();
@@ -37,6 +39,7 @@ const AddJob = () => {
             icon: "success",
             draggable: true,
           });
+          navigate("/myPostedJobs");
         }
       });
   };

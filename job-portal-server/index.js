@@ -37,7 +37,13 @@ async function run() {
 
     // jobs related apis
     app.get("/jobs", async (req, res) => {
-      const result = await jobsCollection.find().toArray();
+      const email = req.query.email;
+      let query = {};
+      if (email) {
+        query = { hr_email: email };
+      }
+
+      const result = await jobsCollection.find(query).toArray();
       res.send(result);
     });
 
@@ -62,7 +68,7 @@ async function run() {
 
       // collect data but not the best way
       for (const application of result) {
-        console.log(application.job_id);
+        // console.log(application.job_id);
         const query1 = { _id: new ObjectId(application.job_id) };
         const job = await jobsCollection.findOne(query1);
         if (job) {
