@@ -1,8 +1,24 @@
 const AddJob = () => {
+  const handleAddJob = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    // console.log(formData.entries());
+    const initialData = Object.fromEntries(formData.entries());
+    console.log(initialData);
+
+    const { min, max, currency, ...newJob } = initialData;
+    console.log(newJob);
+
+    newJob.salaryRange = {
+      min,
+      max,
+      currency,
+    };
+  };
   return (
     <div>
       <h2 className="text-3xl">Post a new Job</h2>
-      <form className="fieldset">
+      <form onSubmit={handleAddJob} className="fieldset">
         {/* job title */}
         <label className="fieldset-label">Job Title</label>
         <input
@@ -10,6 +26,7 @@ const AddJob = () => {
           name="title"
           className="input w-full"
           placeholder="Job Title"
+          required
         />
         {/* job location */}
         <label className="fieldset-label">Job Location</label>
@@ -18,10 +35,15 @@ const AddJob = () => {
           name="location"
           className="input w-full"
           placeholder="Job Location"
+          required
         />
         {/* job type */}
         <label className="fieldset-label">Job Type</label>
-        <select defaultValue="Pick a Job type" className="select w-full">
+        <select
+          defaultValue="Pick a Job type"
+          name="job_type"
+          className="select w-full"
+        >
           <option disabled={true}>Pick a Job type</option>
           <option>Full-time</option>
           <option>Intern</option>
@@ -29,7 +51,11 @@ const AddJob = () => {
         </select>
         {/* job category */}
         <label className="fieldset-label">Job Category</label>
-        <select defaultValue="Pick a Job Category" className="select w-full">
+        <select
+          defaultValue="Pick a Job Category"
+          name="category"
+          className="select w-full"
+        >
           <option disabled={true}>Pick a Job Category</option>
           <option>Engineering</option>
           <option>Marketing</option>
@@ -45,6 +71,7 @@ const AddJob = () => {
               name="min"
               className="input w-full"
               placeholder="Min"
+              required
             />
           </div>
           <div>
@@ -53,10 +80,15 @@ const AddJob = () => {
               name="max"
               className="input w-full"
               placeholder="Max"
+              required
             />
           </div>
           <div>
-            <select defaultValue="Currency" className="select w-full">
+            <select
+              defaultValue="Currency"
+              name="currency"
+              className="select w-full"
+            >
               <option disabled={true}>Currency</option>
               <option>BDT</option>
               <option>USD</option>
@@ -79,6 +111,7 @@ const AddJob = () => {
           name="company"
           className="input w-full"
           placeholder="Company Name"
+          required
         />
         {/* requirements */}
         <label className="fieldset-label">Job Requirements</label>
@@ -96,6 +129,34 @@ const AddJob = () => {
           name="responsibilities"
           required
         ></textarea>
+        {/* hr name */}
+        <label className="fieldset-label">HR Name</label>
+        <input
+          type="text"
+          name="hr_name"
+          className="input w-full"
+          placeholder="HR Name"
+          required
+        />
+        {/* hr email */}
+        <label className="fieldset-label">HR Email</label>
+        <input
+          type="email"
+          name="hr_email"
+          className="input w-full"
+          placeholder="HR Email"
+          required
+        />
+        {/* company logo */}
+        <label className="fieldset-label">Company Logo URL</label>
+        <input
+          type="url"
+          name="company_logo"
+          className="input w-full"
+          placeholder="Company Logo URL"
+          required
+        />
+
         {/* submit button */}
         <button className="btn btn-neutral mt-4">Submit</button>
       </form>
