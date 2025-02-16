@@ -47,6 +47,16 @@ const Navbar = () => {
           My Applications
         </NavLink>
       </li>
+      <li>
+        <NavLink
+          to={"/addJob"}
+          className={({ isActive }) =>
+            isActive ? "text-red-500" : "text-black"
+          }
+        >
+          Add A Job
+        </NavLink>
+      </li>
     </>
   );
   return (
