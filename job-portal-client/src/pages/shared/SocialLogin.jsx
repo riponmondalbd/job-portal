@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useContext } from "react";
 import { useLocation, useNavigate } from "react-router";
 import Swal from "sweetalert2";
@@ -19,6 +20,12 @@ const SocialLogin = () => {
             draggable: true,
           });
         }
+        const user = { email: result.user.email };
+        axios
+          .post(`http://localhost:5000/jwt`, user, { withCredentials: true })
+          .then((res) => {
+            console.log(res.data);
+          });
         navigate(form);
       })
       .catch((error) => {

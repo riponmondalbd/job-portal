@@ -32,9 +32,11 @@ const SignIn = () => {
         }
 
         const user = { email: email };
-        axios.post(`http://localhost:5000/jwt`, user).then((res) => {
-          console.log(res.data);
-        });
+        axios
+          .post(`http://localhost:5000/jwt`, user, { withCredentials: true })
+          .then((res) => {
+            console.log(res.data);
+          });
         // navigate(from);
       })
       .catch((error) => {

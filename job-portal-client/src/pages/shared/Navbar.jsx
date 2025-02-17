@@ -97,10 +97,10 @@ const Navbar = () => {
             {links}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">
+        <Link to={"/"} className="btn btn-ghost text-xl">
           <img className="w-12" src={logo} alt="job logo" />
           <h3 className="text-3xl">Job Portal</h3>
-        </a>
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>
