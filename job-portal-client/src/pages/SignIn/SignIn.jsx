@@ -37,7 +37,7 @@ const SignIn = () => {
           .then((res) => {
             console.log(res.data);
           });
-        // navigate(from);
+        navigate(from);
       })
       .catch((error) => {
         Swal.fire({
