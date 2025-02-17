@@ -14,11 +14,14 @@ const MyApplications = () => {
     //   });
 
     axios
-      .get(`http://localhost:5000/job-applications?email=${user.email}`)
+      .get(`http://localhost:5000/job-applications?email=${user.email}`, {
+        withCredentials: true,
+      })
       .then((res) => {
         setJobs(res.data);
       });
   }, [user.email]);
+
   return (
     <div>
       <h2 className="text-3xl">My Applications: {jobs.length}</h2>

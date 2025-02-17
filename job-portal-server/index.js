@@ -16,6 +16,27 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 
+const logger = (req, res, next) => {
+  console.log("inside the logger");
+  next();
+};
+
+const verifyToken = (req, res, next) => {
+  // console.log("inside verify token middleware", req.cookies);
+  const token = req.cookies?.token;
+
+  if (!token) {
+    return res.status(401).send({ message: "Unauthorized Access" });
+  }
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+    if (err) {
+      return res.status(401).send({ message: "Unauthorized Access" });
+    }
+    next();
+  });
+};
+
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.4ylud.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
@@ -46,7 +67,9 @@ async function run() {
     // auth related apis
     app.post("/jwt", async (req, res) => {
       const user = req.body;
-      const token = jwt.sign(user, process.env.JWT_SECRET, { expiresIn: "1h" });
+      const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
+        expiresIn: "1h",
+      });
       res
         .cookie("token", token, {
           httpOnly: true,
@@ -56,7 +79,7 @@ async function run() {
     });
 
     // jobs related apis
-    app.get("/jobs", async (req, res) => {
+    app.get("/jobs", logger, async (req, res) => {
       const email = req.query.email;
       let query = {};
       if (email) {
@@ -81,9 +104,10 @@ async function run() {
     });
 
     // job application apis
-    app.get("/job-applications/", async (req, res) => {
+    app.get("/job-applications/", verifyToken, async (req, res) => {
       const email = req.query.email;
       const query = { applicant_email: email };
+
       const result = await jobApplicationCollection.find(query).toArray();
 
       // collect data but not the best way
